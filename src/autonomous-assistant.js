@@ -2,7 +2,16 @@
 (function initAutonomousAssistant(global){
   'use strict';
   const CT=global.CertTrackerV3;
-  if(!CT?.recommendations||!CT?.accountConnections)return;
+  if(!CT?.recommendations||!CT?.accountConnections){
+    if(!global.__nexusAssistantDeferred){
+      global.__nexusAssistantDeferred=true;
+      const retry=()=>{global.__nexusAssistantDeferred=false;initAutonomousAssistant(global)};
+      if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',retry,{once:true});
+      else setTimeout(retry,0);
+    }
+    return;
+  }
+  if(CT.autonomousAssistant)return;
   const esc=CT.util.escapeHtml;
   const FEEDBACK_KEY='ct4-autonomous-assistant-feedback-v1';
   const STAGES=Object.freeze([

@@ -14,11 +14,12 @@ const requireText=(source,value,label)=>{if(!source.includes(value))failures.pus
 for(const value of ['V17','V18','V19','V20','Reliable foundation','Closed-loop learning','Proactive assistant','Continuous optimisation'])requireText(app,value,`assistant missing ${value}`);
 for(const value of ['snapshot','response','recordOutcome','data-autonomous-assistant','What deserves attention?'])requireText(app,value,`assistant contract missing ${value}`);
 for(const value of ['autonomous-assistant.css','src/autonomous-assistant.js'])requireText(index,value,`index missing ${value}`);
-for(const value of ['src/autonomous-assistant.js','autonomous-assistant.css','v4.32.1-autonomous-v20'])requireText(worker,value,`service worker missing ${value}`);
-requireText(config,"app: '4.32.1'",'app version not bumped to 4.32.1');
+for(const value of ['src/autonomous-assistant.js','autonomous-assistant.css','v4.32.2-autonomous-v20'])requireText(worker,value,`service worker missing ${value}`);
+requireText(config,"app: '4.32.2'",'app version not bumped to 4.32.2');
 requireText(config,'intelligence: 20','intelligence version not bumped to 20');
 requireText(css,'@media(max-width:560px)','mobile assistant layout missing');
 requireText(css,'prefers-reduced-motion','reduced-motion handling missing');
+requireText(app,'__nexusAssistantDeferred','assistant does not defer safely through mixed-cache upgrades');
 requireText(renderer,'focused.definition?.phases?.[ph]','saved focused routes do not use a safe phase lookup');
 requireText(renderer,'|| PHASES?.[ph]','saved focused routes do not fall back to canonical phases');
 
