@@ -3,11 +3,12 @@
   'use strict';
   const CT=global.CertTrackerV3;
   if(!CT?.recommendations||!CT?.accountConnections){
-    if(!global.__nexusAssistantDeferred){
-      global.__nexusAssistantDeferred=true;
-      const retry=()=>{global.__nexusAssistantDeferred=false;initAutonomousAssistant(global)};
+    const attempt=Number(global.__nexusAssistantDeferred||0);
+    if(attempt<3){
+      global.__nexusAssistantDeferred=attempt+1;
+      const retry=()=>initAutonomousAssistant(global);
       if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',retry,{once:true});
-      else setTimeout(retry,0);
+      else setTimeout(retry,50);
     }
     return;
   }
@@ -100,7 +101,7 @@
   }
 
   function render(intent='overview'){
-    if(global.state?.currentTab!=='dashboard')return;
+    if(typeof state!=='undefined'&&state.currentTab!=='dashboard')return;
     const content=document.getElementById('tab-content');if(!content)return;
     const snap=snapshot(),answer=response(intent,snap),wrap=document.createElement('div');wrap.innerHTML=assistantHtml(answer,snap);
     const section=wrap.firstElementChild,existing=content.querySelector('[data-autonomous-assistant]');
