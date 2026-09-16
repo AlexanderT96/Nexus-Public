@@ -2024,7 +2024,14 @@ function toggleFilterGroup(name) {
 }
 
 
-function trackerPhaseSpec(ph) { return window.CertTrackerV3?.focusedRoute?.scoped()?window.CertTrackerV3.focusedRoute.definition.phases[ph]:PHASES[ph]; }
+function trackerPhaseSpec(ph) {
+  const focused = window.CertTrackerV3?.focusedRoute;
+  // Saved focused-route preferences can outlive older route definitions. Keep
+  // the dashboard available so the user can review or migrate that route.
+  return (focused?.scoped() ? focused.definition?.phases?.[ph] : null)
+    || PHASES?.[ph]
+    || { name:`Phase ${ph}`, roles:[], band:'' };
+}
 
 function toggleMyPath(certId) {
   state.myPath = state.myPath || {};
