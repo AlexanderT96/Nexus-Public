@@ -108,7 +108,8 @@
     sololearn:Object.freeze({name:'Sololearn',url:'https://www.sololearn.com/en/',modes:Object.freeze(['iOS / Android app','Desktop web']),free:true,use:'Bite-sized programming courses, quizzes and code practice across Python, JavaScript, SQL, C#, C++ and web topics.',limit:'Useful for retrieval and repetition; not a substitute for debugging and building a complete project.'}),
     microsoftLearn:Object.freeze({name:'Microsoft Learn',url:'https://learn.microsoft.com/en-us/training/',modes:Object.freeze(['Desktop web','Mobile browser']),free:true,use:'Official Microsoft modules, learning paths and selected interactive exercises.',limit:'Use the current credential study guide to select modules; the full catalogue is broader than any one exam.'}),
     ciscoNetAcad:Object.freeze({name:'Cisco Networking Academy / Skills for All',url:'https://www.netacad.com/courses/networking',modes:Object.freeze(['Desktop web']),free:null,use:'Structured networking foundations and Cisco-aligned learning with Packet Tracer routes.',limit:'Use a desktop for Packet Tracer labs and validate the current exam blueprint before booking.'}),
-    bosonNetSim:Object.freeze({name:'Boson NetSim',url:'https://boson.com/netsim-cisco-network-simulator/',modes:Object.freeze(['Desktop browser','Tablet browser']),free:false,use:'Guided Cisco configuration, topology and troubleshooting labs with automated grading and a network designer.',limit:'Use for D3+ applied Cisco networking; it is paid, does not replace physical equipment or production experience, and is separate from Boson ExSim exam practice.'})
+    bosonNetSim:Object.freeze({name:'Boson NetSim',url:'https://boson.com/netsim-cisco-network-simulator/',modes:Object.freeze(['Desktop browser','Tablet browser']),free:false,use:'Guided Cisco configuration, topology and troubleshooting labs with automated grading and a network designer.',limit:'Use for D3+ applied Cisco networking; it is paid, does not replace physical equipment or production experience, and is separate from Boson ExSim exam practice.'}),
+    pingMyNetwork:Object.freeze({name:'PingMyNetwork',url:'https://pingmynetwork.com/learn/network',modes:Object.freeze(['Desktop browser','Mobile browser']),free:null,use:'Interactive Cisco CLI reinforcement, quizzes, flashcards, exam simulations and real-world/NOC troubleshooting scenarios for CCNA with later ENCOR/ENARSI continuity.',limit:'Use as applied reinforcement alongside the primary teaching spine and full topology labs; it does not replace Cisco objectives, Packet Tracer/CML, Boson readiness testing or production experience.'})
   });
   function platformLink(id,reason){const p=PLATFORMS[id];return link(`${p.name} · ${p.modes.join(' + ')}`,p.url,`${reason} ${p.use} Limitation: ${p.limit}`,'platform',p.free,{coverage:'PLATFORM',platformId:id,modes:p.modes,use:p.use,limit:p.limit,reviewedAt:'2026-09-10'});}
   function auditedLinks(cert){return (CT.curriculumAudit?.validatedResources(cert.id)||[]).map(item=>{const platform=Object.entries(PLATFORMS).find(([,value])=>value.url===item.url);return link(item.label,item.url,item.note,platform?'platform':item.role,item.free,{coverage:'REVIEWED',auditStatus:item.status,reviewedAt:item.checkedAt,...(platform?{platformId:platform[0],modes:platform[1].modes,use:platform[1].use,limit:platform[1].limit}:{})});});}
@@ -122,7 +123,7 @@
     if(depth>=3&&/cyber|soc|incident|forensic|threat|pentest|active directory|network traffic|vulnerability|linux|windows|powershell/.test(text))rows.push(platformLink('htb','Use after foundations when a deeper desktop lab is justified.'));
     if(/kubernetes|docker|container|devops|linux|cloud|terraform|ansible|infrastructure as code|iac|ci\/cd|yaml|bash/.test(text))rows.push(platformLink('kodekloud','Use for structured desktop labs and role-based platform practice.'));
     if(vendorKey(cert)==='Microsoft'||/azure|entra|microsoft 365|powershell|defender|sentinel|purview/.test(text))rows.unshift(platformLink('microsoftLearn','Use as the official modular learning spine.'));
-    if(cisco&&depth>=3&&/subnet|ipv4|ipv6|routing|switching|vlan|trunk|spanning tree|stp|etherchannel|acl|nat|dhcp|ospf|eigrp|bgp|wireless|network automation|network troubleshoot|device configuration/.test(text))rows.push(platformLink('bosonNetSim','Use after learning the concept to configure, break, diagnose and verify it in a graded topology.'));
+    if(cisco&&depth>=3&&/subnet|ipv4|ipv6|routing|switching|vlan|trunk|spanning tree|stp|etherchannel|acl|nat|dhcp|ospf|eigrp|bgp|wireless|network automation|network troubleshoot|device configuration/.test(text)){rows.push(platformLink('pingMyNetwork','Use immediately after learning the concept for interactive CLI repetition and troubleshooting reinforcement.'));rows.push(platformLink('bosonNetSim','Use after learning the concept to configure, break, diagnose and verify it in a graded topology.'));}
     if(cisco||/networking fundamental|routing|switching|vlan|packet tracer/.test(text))rows.unshift(platformLink('ciscoNetAcad','Use for structured networking theory and topology practice.'));
     return Object.freeze(dedupe(rows).slice(0,3));
   }
@@ -185,6 +186,7 @@
     ]),
     ccna:Object.freeze([
       link("Jeremy's IT Lab CCNA course",'https://courses.jeremysitlab.com/p/ccna','Best free video + lab + flashcard spine','video',true),
+      link('PingMyNetwork','https://pingmynetwork.com/learn/network','Interactive Cisco CLI, quizzes, flashcards, exam simulations and NOC-style troubleshooting reinforcement','platform',null),
       link('Cisco Skills for All','https://www.netacad.com/courses/networking','Official Cisco foundational/lab learning','course',true),
       link('Cisco Packet Tracer','https://www.netacad.com/courses/packet-tracer','Hands-on configuration and break/fix practice','lab',true)
     ]),
@@ -192,6 +194,7 @@
       link('Cisco ENCOR training','https://www.cisco.com/site/us/en/learn/training-certifications/training/courses/encor.html','Official ENCOR curriculum and current learning path','course',false),
       link('Cisco ENARSI training','https://www.cisco.com/site/us/en/learn/training-certifications/training/courses/enarsi.html','Official advanced-routing curriculum','course',false),
       link('Cisco U','https://u.cisco.com/','Primary guided learning platform for ENCOR/ENARSI','course',false),
+      link('PingMyNetwork','https://pingmynetwork.com/learn/network','Interactive continuation from CCNA into ENCOR/ENARSI reinforcement where current modules are available','platform',null),
       link('Boson ExSim','https://www.boson.com/practice-exam','High-quality Cisco practice exams','practice',false)
     ]),
     'ccie-enterprise':Object.freeze([
