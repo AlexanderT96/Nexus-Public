@@ -2,6 +2,11 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
 
+const indexHtml = fs.readFileSync('index.html', 'utf8');
+assert.equal(fs.existsSync('src/career-path-v14.js'), false, 'legacy career-path-v14 overlay must stay removed');
+assert.doesNotMatch(indexHtml, /career-path-v14\.js/, 'index.html must not load the legacy My Path overlay');
+assert.match(indexHtml, /src\/path-defaults\.js/, 'index.html must load the canonical My Path source');
+
 const sandbox = { window: {} };
 vm.createContext(sandbox);
 vm.runInContext(fs.readFileSync('certs.js', 'utf8'), sandbox, { filename: 'certs.js' });
