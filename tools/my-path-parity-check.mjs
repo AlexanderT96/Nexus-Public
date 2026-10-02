@@ -44,8 +44,10 @@ for (const id of routeIds) {
 }
 
 const az802 = byId.get('az-802');
-assert.equal(az802.catalogueStatus, 'PENDING_BLUEPRINT');
-assert.equal(az802.active, false);
+assert.equal(az802.catalogueStatus, 'ACTIVE');
+assert.equal(az802.active, true);
+assert.equal(az802.track, 'CORE');
+assert.deepEqual(Array.from(az802.deps || []), [], 'AZ-802 must not fabricate AZ-900 as a prerequisite');
 assert.ok(Number.isFinite(byId.get('cwne').experienceGate?.enterpriseProjects) && byId.get('cwne').experienceGate.enterpriseProjects >= 3);
 assert.equal(Array.from(byId.get('cwap').deps || []).join(','), 'cwna');
 assert.equal(Array.from(byId.get('cwdp').deps || []).join(','), 'cwna');
@@ -76,6 +78,13 @@ const otTrack=Array.from(route.focusTracks||[]).find(track=>track.id==='ot-conve
 assert.deepEqual(Array.from(otTrack?.certs||[]),['iec-62443-cfs','iec-62443-cra','iec-62443-cds','iec-62443-cms','iec-62443-expert','isa95-fund','isa-apm','isa-cap-associate','isa-cap','isa-61511-sis-fund','isa-61511-sil-select','isa-61511-sil-verify','isa-61511-expert']);
 assert.equal(otTrack?.status,'OPTIONAL');
 assert.equal(route.executionPolicy?.mode,'FOREGROUND_CORE_BACKGROUND_PYTHON');
+assert.equal(route.careerPolicy?.target,'Security Convergence Architect');
+assert.equal(route.careerPolicy?.phaseOneCapstone,'ccna');
+assert.match(route.careerPolicy?.scope||'',/physical installation is outside/i);
+assert.ok(route.careerPolicy?.transitionOne,'first strategic career transition must be explicit');
+assert.match(route.careerPolicy?.transitionOne?.employerRule||'',/genuinely engineer and own/i);
+assert.ok(Array.isArray(Array.from(route.deScopedTracks||[])) && Array.from(route.deScopedTracks||[]).length>=5,'sidetrack controls must remain explicit');
+for (const id of ['az-900','cwisa','cisco-meraki-solutions','pcpp1','ccie-enterprise']) assert.equal(routeIds.includes(id),false,`${id} must not silently return to mandatory core`);
 assert.deepEqual(Array.from(runtimeById.get('ai-901').deps||[]),['pcep']);
 assert.deepEqual(Array.from(runtimeById.get('ai-103').deps||[]),['pcap','ai-901']);
 assert.match(byId.get('pcep').marketNote, /five years/i);
