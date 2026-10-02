@@ -2,8 +2,8 @@
 (function(global){
   'use strict';
   const groups=[
-    ['Systems, networking and physical-security lock-in',['a-plus','network-plus','mcit','mcde','arcules-csp','mcie','ccna','acp'],'Complete the time-bounded CCNA programme after XCIE while Axis ACP continues as supporting role study'],
-    ['Wireless, analytics and programming foundations',['briefcam-tech','cwna','cwisa','cisco-meraki-solutions','security-plus','pcep','az-900','pcap'],'Accessible video analytics, vendor-neutral enterprise Wi-Fi, wireless-IoT administration, Meraki operations, security fundamentals and reusable Python'],
+    ['Security systems and infrastructure core identity',['a-plus','network-plus','mcit','mcde','arcules-csp','mcie','acp','ccna'],'Build the systems-engineering core around enterprise physical security and close the foundation stage with CCNA. This is systems/infrastructure engineering, not physical installation.'],
+    ['Infrastructure expansion around the security core',['briefcam-tech','cwna','cwisa','cisco-meraki-solutions','security-plus','pcep','az-900','pcap'],'Expand the Phase 1 security-systems identity into wireless, security, cloud and reusable programming; BriefCam activates as a role requirement when employer access arrives rather than competing with active foreground study beforehand'],
     ['Linux, Windows Server, Azure and platform security',['linux-plus','az-802','az-104','az-700','sc-300','crowdstrike-ccfa','sc-500','cwap','cwdp','cwsp'],'Linux and Windows administration, Azure networking, identity and endpoint controls plus wireless analysis, architecture and security'],
     ['Professional networking and AI foundations',['ccnp-enterprise','ai-901'],'ENCOR + ENARSI routing depth; practical AI foundations'],
     ['Automation, AI applications and cloud/security design',['ai-103','pcpp1','az-305','sc-100'],'Python applications, Microsoft Foundry, resilient Azure design and Zero Trust security architecture'],
@@ -28,6 +28,28 @@
     Object.freeze({id:'lenels2-access-control',title:'LenelS2 access-control engineering ecosystem',status:'EMPLOYER ACCESS',hidden:true,unlock:Object.freeze({type:'EMPLOYER_PARTNER_ACCESS',condition:'Reveal when LenelS2 partner-portal access or assigned OnGuard / NetBox delivery responsibility is confirmed.',evidence:'Partner learning entitlement plus a named workplace system, project or support responsibility.'}),why:'High contextual value for enterprise physical-security work, but the current credential names and eligibility beyond the publicly evidenced LCA foundation must be confirmed inside the authorised partner portal before booking.',certs:Object.freeze(['lca','lcp','lce','lcda']),topics:Object.freeze(['lenels2-platform-foundations','lenels2-integration-operations','lenels2-enterprise-design']),resources:Object.freeze([{label:'LenelS2 training and certification',url:'https://www.lenels2.com/en/training/'},{label:'LenelS2 + BriefCam integration ecosystem',url:'https://buildings.honeywell.com/us/en/brands/our-brands/lenels2/security-solutions/third-party-integration/oaap-partners/briefcam-video-analytics-platform'}])}),
   ]);
   const auditIds=Object.freeze([...new Set([...ids,...focusTracks.filter(x=>x.id.startsWith('cwnp-')).flatMap(x=>x.certs)])]);
+  const careerPolicy=Object.freeze({
+    target:'Security Convergence Architect',
+    coreIdentity:'Security Systems & Infrastructure Engineer',
+    scope:'Design, build, implement, maintain, troubleshoot and improve enterprise security systems and the infrastructure they depend on; physical installation is outside the target role.',
+    progression:Object.freeze([
+      'Security Systems & Infrastructure Engineer',
+      'Infrastructure-capable Security Engineer',
+      'Security Convergence Engineer',
+      'Senior/Lead Convergence Engineer',
+      'Security Convergence Architect'
+    ]),
+    compoundingRule:'Later learning must deepen the security-systems core or increase the ability to integrate it with networking, wireless, compute, cloud, cybersecurity, analytics or automation.',
+    experienceRule:'Production experience is preferred but is not required where the current role does not provide ownership of the underlying system. Valid evidence may come from production work, deliberate labs/projects, or informed troubleshooting/design work alongside customer-owned IT environments.',
+    evidenceRoutes:Object.freeze({
+      production:'Hands-on responsibility for a live system or service.',
+      lab:'Deliberate lab, project, design or implementation evidence where production access is unavailable.',
+      advisory:'Educated troubleshooting, health assessment, design reasoning or technical collaboration where the customer or another team owns the underlying infrastructure.'
+    }),
+    roleDrivenDeferred:Object.freeze(['briefcam-tech','lca','lcp','lce','lcda']),
+    roleDrivenRule:'Employer-mandated role learning may pre-empt the roadmap when access or responsibility becomes real; dormant vendor tracks must not displace active foreground study.',
+    phaseOneCapstone:'ccna'
+  });
   const executionPolicy=Object.freeze({
     mode:'FOREGROUND_CORE_BACKGROUND_PYTHON',
     foreground:Object.freeze(['mcie','ccna','acp']),
@@ -35,7 +57,7 @@
     nonCompeting:Object.freeze(['pcep','pcap','pcpp1','ai-901','ai-103']),
     rule:'Python remains a core dependency but cannot displace an active networking, wireless or current-role milestone. AI begins only after the mapped Python rung is complete.'
   });
-  global.CERT_TRACKER_FOCUSED_ROUTE=Object.freeze({id:'network-platform-v4',title:'Network, wireless, cloud and automation engineering',ids,phases,focusTracks,auditIds,additions,previousIds,previousPaths,executionPolicy});
+  global.CERT_TRACKER_FOCUSED_ROUTE=Object.freeze({id:'network-platform-v5',title:'Security systems convergence engineering',ids,phases,focusTracks,auditIds,additions,previousIds,previousPaths,careerPolicy,executionPolicy});
   global.CERT_TRACKER_DEFAULT_PATH=ids;
   global.CERT_TRACKER_DEFAULT_ADDITIONS=Object.freeze([]);
 })(window);
