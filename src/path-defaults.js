@@ -2,12 +2,11 @@
 (function(global){
   'use strict';
   const groups=[
-    ['Security systems and infrastructure core identity',['a-plus','network-plus','mcit','mcde','arcules-csp','mcie','acp','ccna'],'Build the systems-engineering core around enterprise physical security and close the foundation stage with CCNA. This is systems/infrastructure engineering, not physical installation.'],
-    ['Infrastructure expansion around the security core',['briefcam-tech','cwna','cwisa','cisco-meraki-solutions','security-plus','pcep','az-900','pcap'],'Expand the Phase 1 security-systems identity into wireless, security, cloud and reusable programming; BriefCam activates as a role requirement when employer access arrives rather than competing with active foreground study beforehand'],
-    ['Linux, Windows Server, Azure and platform security',['linux-plus','az-802','az-104','az-700','sc-300','crowdstrike-ccfa','sc-500','cwap','cwdp','cwsp'],'Linux and Windows administration, Azure networking, identity and endpoint controls plus wireless analysis, architecture and security'],
-    ['Professional networking and AI foundations',['ccnp-enterprise','ai-901'],'ENCOR + ENARSI routing depth; practical AI foundations'],
-    ['Automation, AI applications and cloud/security design',['ai-103','pcpp1','az-305','sc-100'],'Python applications, Microsoft Foundry, resilient Azure design and Zero Trust security architecture'],
-    ['Expert networking, wireless and security capstone',['cissp','ccie-enterprise','cwne'],'Vendor-neutral security architecture plus expert networking and CWNP design authority; qualify and book experience-gated awards only when evidence requirements are met']
+    ['Security systems and infrastructure core identity',['a-plus','network-plus','mcit','mcde','arcules-csp','mcie','acp','briefcam-tech','ccna'],'Exploit the current role to build enterprise security-systems depth and close the foundation with CCNA. BriefCam is role-driven/deferred until employer access arrives and does not block the CCNA capstone.'],
+    ['Infrastructure ownership bridge',['cwna','security-plus','az-802','linux-plus','pcep'],'Prepare for the first strategic move: enterprise Wi-Fi, security fundamentals, Windows Server/hybrid infrastructure and Linux competence, with Python kept deliberately non-competing.'],
+    ['Convergence engineering depth',['az-104','az-700','sc-300','pcap','ccnp-enterprise','cwap','cwdp','cwsp'],'Build real infrastructure depth across Azure administration/networking, identity, professional networking and advanced wireless while converting Python into practical automation capability.'],
+    ['Architecture and intelligent systems',['sc-500','ai-901','ai-103','az-305','sc-100'],'Add security implementation, applied AI and architecture only after infrastructure competence and evidence are established.'],
+    ['Experience-gated architecture capstone',['cissp','cwne'],'Use experience-backed security and wireless authority as late-stage evidence; expert vendor credentials are reassessed against the actual architecture role rather than accumulated automatically.']
   ];
   const ids=Object.freeze(groups.flatMap(g=>g[1]));
   const phases=Object.freeze(Object.fromEntries(groups.map(([title,certs,sub],i)=>[i+1,Object.freeze({title,name:title,sub,layer:sub,window:'Self-paced',certs:Object.freeze(certs),artifact:null,roles:null,applyOut:null})])));
@@ -27,28 +26,41 @@
     Object.freeze({id:'palo-alto',title:'Palo Alto network-security focus',status:'OPTIONAL',why:'Activate when PAN-OS, Prisma or a target vacancy creates vendor-specific return; keep architecture levels experience-gated.',certs:Object.freeze(['pan-practitioner','pan-netsec-pro','pan-ngfw-eng','pan-cloudsec-pro','pan-netsec-arch']),resources:Object.freeze([{label:'Palo Alto Networks certification programme',url:'https://www.paloaltonetworks.com/services/education/certification'},{label:'Beacon learning platform',url:'https://beacon.paloaltonetworks.com/'}])}),
     Object.freeze({id:'lenels2-access-control',title:'LenelS2 access-control engineering ecosystem',status:'EMPLOYER ACCESS',hidden:true,unlock:Object.freeze({type:'EMPLOYER_PARTNER_ACCESS',condition:'Reveal when LenelS2 partner-portal access or assigned OnGuard / NetBox delivery responsibility is confirmed.',evidence:'Partner learning entitlement plus a named workplace system, project or support responsibility.'}),why:'High contextual value for enterprise physical-security work, but the current credential names and eligibility beyond the publicly evidenced LCA foundation must be confirmed inside the authorised partner portal before booking.',certs:Object.freeze(['lca','lcp','lce','lcda']),topics:Object.freeze(['lenels2-platform-foundations','lenels2-integration-operations','lenels2-enterprise-design']),resources:Object.freeze([{label:'LenelS2 training and certification',url:'https://www.lenels2.com/en/training/'},{label:'LenelS2 + BriefCam integration ecosystem',url:'https://buildings.honeywell.com/us/en/brands/our-brands/lenels2/security-solutions/third-party-integration/oaap-partners/briefcam-video-analytics-platform'}])}),
   ]);
-  const auditIds=Object.freeze([...new Set([...ids,...focusTracks.filter(x=>x.id.startsWith('cwnp-')).flatMap(x=>x.certs)])]);
+  const deScopedTracks=Object.freeze([
+    Object.freeze({id:'knowledge-only-azure-fundamentals',title:'Azure fundamentals knowledge',status:'KNOWLEDGE_ONLY',why:'Learn the AZ-900 concepts when needed, but do not require the beginner exam before role-based Azure administration.',certs:Object.freeze(['az-900'])}),
+    Object.freeze({id:'wireless-iot-adjacent',title:'Wireless IoT administration',status:'CONDITIONAL',why:'CWISA is useful when IoT/IIoT responsibilities become material; it is not required for the enterprise Wi-Fi progression.',certs:Object.freeze(['cwisa'])}),
+    Object.freeze({id:'meraki-vendor-depth',title:'Cisco Meraki vendor depth',status:'CONDITIONAL',why:'Activate when a role or managed estate uses Meraki; CCNA and CWNA provide the more transferable foundations.',certs:Object.freeze(['cisco-meraki-solutions'])}),
+    Object.freeze({id:'advanced-python-credential',title:'Advanced Python credential',status:'CONDITIONAL',why:'PCPP1 is only justified if software/automation depth becomes a material part of the role; practical automation evidence outranks another Python badge.',certs:Object.freeze(['pcpp1'])}),
+    Object.freeze({id:'expert-cisco-decision',title:'Expert Cisco networking decision',status:'REASSESS',why:'CCIE Enterprise is no longer an automatic capstone. Reassess after CCNP and senior design experience against architecture-oriented alternatives and the actual target role.',certs:Object.freeze(['ccie-enterprise'])})
+  ]);
+  const auditIds=Object.freeze([...new Set([...ids,...focusTracks.flatMap(x=>x.certs||[]),...deScopedTracks.flatMap(x=>x.certs||[])])]);
   const careerPolicy=Object.freeze({
     target:'Security Convergence Architect',
     coreIdentity:'Security Systems & Infrastructure Engineer',
     scope:'Design, build, implement, maintain, troubleshoot and improve enterprise security systems and the infrastructure they depend on; physical installation is outside the target role.',
-    progression:Object.freeze([
-      'Security Systems & Infrastructure Engineer',
-      'Infrastructure-capable Security Engineer',
-      'Security Convergence Engineer',
-      'Senior/Lead Convergence Engineer',
-      'Security Convergence Architect'
-    ]),
-    compoundingRule:'Later learning must deepen the security-systems core or increase the ability to integrate it with networking, wireless, compute, cloud, cybersecurity, analytics or automation.',
-    experienceRule:'Production experience is preferred but is not required where the current role does not provide ownership of the underlying system. Valid evidence may come from production work, deliberate labs/projects, or informed troubleshooting/design work alongside customer-owned IT environments.',
+    progression:Object.freeze(['Security Systems & Infrastructure Engineer','Infrastructure-capable Security Engineer','Security Convergence Engineer','Senior/Lead Convergence Engineer','Security Convergence Architect']),
+    compoundingRule:'Every core item must deepen the security-systems advantage or acquire a missing capability needed for the next ownership jump. Interesting but non-essential technology is conditional, optional or knowledge-only.',
+    experienceRule:'Production experience is preferred but is not required where the current role does not provide ownership. Use production work, deliberate labs/projects, or informed troubleshooting/design work without overstating them as equivalent.',
     evidenceRoutes:Object.freeze({
       production:'Hands-on responsibility for a live system or service.',
       lab:'Deliberate lab, project, design or implementation evidence where production access is unavailable.',
-      advisory:'Educated troubleshooting, health assessment, design reasoning or technical collaboration where the customer or another team owns the underlying infrastructure.'
+      advisory:'Educated troubleshooting, health assessment, design reasoning or technical collaboration where the customer, MSP or another team owns the infrastructure.'
     }),
     roleDrivenDeferred:Object.freeze(['briefcam-tech','lca','lcp','lce','lcda']),
     roleDrivenRule:'Employer-mandated role learning may pre-empt the roadmap when access or responsibility becomes real; dormant vendor tracks must not displace active foreground study.',
-    phaseOneCapstone:'ccna'
+    phaseOneCapstone:'ccna',
+    transitionOne:Object.freeze({
+      objective:'Move from customer-boundary troubleshooting into materially greater infrastructure ownership without discarding the enterprise security-systems specialism.',
+      timing:'Opportunity-triggered, not calendar-triggered. Phase 1 should be substantially established, but a high-runway opportunity may justify moving before every deferred vendor item is complete.',
+      employerRule:'Prefer teams that genuinely engineer and own technology. Internal IT proximity alone is insufficient when meaningful infrastructure work is routinely handed to an MSP or supplier.',
+      mspRule:'MSPs and integrators remain valid targets when they provide real ownership plus strong mentoring, training, compensation and progression.',
+      opportunityDimensions:Object.freeze(['technical ownership','infrastructure breadth','design responsibility','training investment','mentorship','internal mobility','security-systems relevance','compensation','architecture runway']),
+      hardRule:'A move must materially increase technical ownership, architectural responsibility, development runway or strategically important exposure; do not change employer merely to perform the same bounded support role elsewhere.'
+    }),
+    transitionTwo:Object.freeze({
+      objective:'Move from cross-domain implementation into senior/lead engineering and solution-design authority.',
+      trigger:'Demonstrated ownership across multiple infrastructure domains plus evidence of design, resilience, security, integration and lifecycle decisions.'
+    })
   });
   const executionPolicy=Object.freeze({
     mode:'FOREGROUND_CORE_BACKGROUND_PYTHON',
@@ -57,7 +69,7 @@
     nonCompeting:Object.freeze(['pcep','pcap','pcpp1','ai-901','ai-103']),
     rule:'Python remains a core dependency but cannot displace an active networking, wireless or current-role milestone. AI begins only after the mapped Python rung is complete.'
   });
-  global.CERT_TRACKER_FOCUSED_ROUTE=Object.freeze({id:'network-platform-v5',title:'Security systems convergence engineering',ids,phases,focusTracks,auditIds,additions,previousIds,previousPaths,careerPolicy,executionPolicy});
+  global.CERT_TRACKER_FOCUSED_ROUTE=Object.freeze({id:'network-platform-v6',title:'Security systems convergence engineering',ids,phases,focusTracks,deScopedTracks,auditIds,additions,previousIds,previousPaths,careerPolicy,executionPolicy});
   global.CERT_TRACKER_DEFAULT_PATH=ids;
   global.CERT_TRACKER_DEFAULT_ADDITIONS=Object.freeze([]);
 })(window);
