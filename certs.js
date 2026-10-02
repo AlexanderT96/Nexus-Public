@@ -4000,15 +4000,15 @@ const CERTS = [
     "id": "az-802",
     "name": "Windows Server Hybrid Administration (AZ-802)",
     "code": "AZ-802",
-    "phase": 3,
-    "track": "CONDITIONAL",
+    "phase": 2,
+    "track": "CORE",
     "gateway": false,
     "tier": "A",
     "validity": 12,
     "cost": "Microsoft exam price varies by region",
     "costNum": 124,
     "cvValue": 4000,
-    "verifiedAt": "2026-09-11",
+    "verifiedAt": "2026-10-02",
     "employer": false,
     "free": false,
     "difficulty": 7,
@@ -4030,24 +4030,22 @@ const CERTS = [
       "Windows Server networking",
       "storage and compute",
       "security",
-      "blueprint domain mapping"
+      "monitoring and troubleshooting"
     ],
-    "examFormat": "Blueprint crosswalk pending; do not book or mark active until Microsoft confirms current scope.",
-    "projectRec": "Pending official blueprint: build a Windows Server hybrid lab after domains and weighting are verified.",
-    "note": "Route placeholder retained for Windows Server coverage, explicitly inactive pending Microsoft blueprint crosswalk.",
-    "deps": [
-      "az-900"
-    ],
+    "examFormat": "Live Microsoft role-based exam covering AD DS, hybrid Windows Server management, virtualisation, networking, storage, security, high availability, disaster recovery, migration and monitoring/troubleshooting.",
+    "projectRec": "Build a Windows Server hybrid lab covering AD DS, Hyper-V, storage, networking, security, monitoring and Azure-connected management.",
+    "note": "Core infrastructure-ownership bridge: develops the Windows Server, identity, virtualisation, storage, networking and troubleshooting depth that customer-boundary support cannot fully provide.",
+    "deps": [],
     "officialUrl": "https://learn.microsoft.com/en-us/credentials/certifications/exams/az-802/",
     "provider": "Microsoft",
-    "renewalRule": "Microsoft role-based credentials normally renew annually; confirm live relationship before activation.",
+    "renewalRule": "Microsoft associate, expert and specialty certifications renew annually through the Microsoft Learn renewal process.",
     "costStatus": "REGION_VARIABLE",
-    "active": false,
-    "catalogueStatus": "PENDING_BLUEPRINT",
+    "active": true,
+    "catalogueStatus": "ACTIVE",
     "tutorBottlenecks": [
       "AD DS/hybrid identity",
       "Windows Server networking",
-      "blueprint domain mapping"
+      "monitoring and troubleshooting"
     ]
   },
   {
