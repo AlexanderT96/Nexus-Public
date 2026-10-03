@@ -3127,3 +3127,16 @@ body::before { background: radial-gradient(52% 52% at 84% 86%, var(--aura-b), tr
 @media (min-resolution: 2.5dppx) {
   .header, .toast, .banner { backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
 }
+
+
+/* ── My Path v8 · career-first progression rail ── */
+.ct-career-flow { overflow: hidden; }
+.ct-career-flow-steps { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:8px; margin-top:14px; }
+.ct-career-flow-step { min-width:0; padding:12px; border:1px solid var(--border); border-radius:12px; background:var(--surface-2); }
+.ct-career-flow-step > span { display:block; font-size:10px; font-weight:800; letter-spacing:.12em; color:var(--blue); margin-bottom:5px; }
+.ct-career-flow-step > strong { display:block; font-size:13px; line-height:1.25; }
+.ct-career-flow-step > small { display:block; margin-top:6px; color:var(--dim); line-height:1.35; }
+.ct-career-flow-step.gate { border-style:dashed; }
+.ct-learning-career-gate { border-style:dashed; }
+@media (max-width:900px){ .ct-career-flow-steps { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (max-width:520px){ .ct-career-flow-steps { grid-template-columns:1fr; } }
