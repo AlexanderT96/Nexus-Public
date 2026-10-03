@@ -3,9 +3,13 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 
 const indexHtml = fs.readFileSync('index.html', 'utf8');
+const learningPathUi = fs.readFileSync('src/learning-path-ui.js', 'utf8');
 assert.equal(fs.existsSync('src/career-path-v14.js'), false, 'legacy career-path-v14 overlay must stay removed');
 assert.doesNotMatch(indexHtml, /career-path-v14\.js/, 'index.html must not load the legacy My Path overlay');
 assert.match(indexHtml, /src\/path-defaults\.js/, 'index.html must load the canonical My Path source');
+assert.match(learningPathUi, /Career direction/, 'My Path UI must lead with career direction');
+assert.match(learningPathUi, /NOT AN EXAM/, 'My Path UI must visibly distinguish career gates from exams');
+assert.doesNotMatch(learningPathUi, /agreed core sequence is fixed/i, 'My Path must not present certification order as more important than career opportunity');
 
 const sandbox = { window: {} };
 vm.createContext(sandbox);
@@ -77,7 +81,11 @@ assert.ok(routeIds.includes('briefcam-tech'),'Accessible BriefCam must be visibl
 const otTrack=Array.from(route.focusTracks||[]).find(track=>track.id==='ot-convergence');
 assert.deepEqual(Array.from(otTrack?.certs||[]),['iec-62443-cfs','iec-62443-cra','iec-62443-cds','iec-62443-cms','iec-62443-expert','isa95-fund','isa-apm','isa-cap-associate','isa-cap','isa-61511-sis-fund','isa-61511-sil-select','isa-61511-sil-verify','isa-61511-expert']);
 assert.equal(otTrack?.status,'OPTIONAL');
-assert.equal(route.id,'network-platform-v7');
+assert.equal(route.id,'network-platform-v8');
+assert.deepEqual(Array.from(route.presentationFlow?.steps||[]).map(x=>x.verb),['SPECIALISE','STRENGTHEN','OWN','INTEGRATE','DESIGN','ARCHITECT']);
+assert.deepEqual(Array.from(route.presentationFlow?.steps||[]).filter(x=>x.kind==='CAREER_GATE').map(x=>x.verb),['OWN','DESIGN']);
+assert.match(route.presentationFlow?.displayRule||'',/career purpose and transition gates before certification detail/i);
+assert.match(route.presentationFlow?.tenSecondTest||'',/within ten seconds/i);
 assert.equal(route.capabilityModel?.maturity?.length,5,'capability maturity must retain five evidence levels');
 assert.deepEqual(Array.from(route.capabilityModel?.maturity||[]).map(x=>x.id),['knowledge','lab','advisory','production','design']);
 assert.ok(Array.from(route.capabilityModel?.domains||[]).some(x=>x.id==='security-systems'&&x.priority==='ANCHOR'),'security systems must remain the anchor domain');
