@@ -77,6 +77,16 @@ assert.ok(routeIds.includes('briefcam-tech'),'Accessible BriefCam must be visibl
 const otTrack=Array.from(route.focusTracks||[]).find(track=>track.id==='ot-convergence');
 assert.deepEqual(Array.from(otTrack?.certs||[]),['iec-62443-cfs','iec-62443-cra','iec-62443-cds','iec-62443-cms','iec-62443-expert','isa95-fund','isa-apm','isa-cap-associate','isa-cap','isa-61511-sis-fund','isa-61511-sil-select','isa-61511-sil-verify','isa-61511-expert']);
 assert.equal(otTrack?.status,'OPTIONAL');
+assert.equal(route.id,'network-platform-v7');
+assert.equal(route.capabilityModel?.maturity?.length,5,'capability maturity must retain five evidence levels');
+assert.deepEqual(Array.from(route.capabilityModel?.maturity||[]).map(x=>x.id),['knowledge','lab','advisory','production','design']);
+assert.ok(Array.from(route.capabilityModel?.domains||[]).some(x=>x.id==='security-systems'&&x.priority==='ANCHOR'),'security systems must remain the anchor domain');
+for (const id of ['networking','wireless','windows-compute','cloud','identity','cybersecurity']) assert.ok(Array.from(route.capabilityModel?.domains||[]).some(x=>x.id===id),'missing core capability domain: '+id);
+assert.match(route.capabilityModel?.bottleneckRule||'',/lowest maturity layer/i);
+assert.match(route.capabilityModel?.antiBadgeRule||'',/not automatic evidence/i);
+assert.match(route.capabilityModel?.stopStudyingRule||'',/changing role instead of continuing certification/i);
+assert.match(route.capabilityModel?.transitionOneGate||'',/production ownership is structurally unavailable/i);
+assert.match(route.capabilityModel?.transitionTwoGate||'',/design authority/i);
 assert.equal(route.executionPolicy?.mode,'FOREGROUND_CORE_BACKGROUND_PYTHON');
 assert.equal(route.careerPolicy?.target,'Security Convergence Architect');
 assert.equal(route.careerPolicy?.phaseOneCapstone,'ccna');
@@ -87,6 +97,8 @@ assert.ok(Array.isArray(Array.from(route.deScopedTracks||[])) && Array.from(rout
 for (const id of ['az-900','cwisa','cisco-meraki-solutions','pcpp1','ccie-enterprise']) assert.equal(routeIds.includes(id),false,`${id} must not silently return to mandatory core`);
 assert.deepEqual(Array.from(runtimeById.get('ai-901').deps||[]),['pcep']);
 assert.deepEqual(Array.from(runtimeById.get('ai-103').deps||[]),['pcap','ai-901']);
+assert.deepEqual(Array.from(route.executionPolicy?.complementary||[]),['pcep','pcap']);
+assert.equal(Array.from(route.executionPolicy?.complementary||[]).includes('pcpp1'),false,'conditional PCPP1 must not return to normal complementary execution');
 assert.match(byId.get('pcep').marketNote, /five years/i);
 assert.match(byId.get('pcap').marketNote, /five years/i);
 
