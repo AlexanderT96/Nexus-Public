@@ -14,7 +14,7 @@
   const previousIds=Object.freeze(ids.filter(id=>!additions.includes(id)));
   const previousPaths=Object.freeze([previousIds,Object.freeze(previousIds.filter(id=>id!=='linux-plus')),Object.freeze(previousIds.filter(id=>!['linux-plus','az-700','az-802'].includes(id)))]);
   const focusTracks=Object.freeze([
-    Object.freeze({id:'cwnp-wifi',title:'CWNP enterprise Wi-Fi progression',status:'CORE',why:'The complete CWNP progression is visible in My Path: CWNA foundation, CWISA bridge, CWAP troubleshooting, CWDP architecture, CWSP security and CWNE experience-gated expert recognition.',certs:Object.freeze(['cwna','cwisa','cwap','cwdp','cwsp','cwne']),resources:Object.freeze([{label:'CWNP certifications and study material',url:'https://www.cwnp.com/certifications/cwna'}])}),
+    Object.freeze({id:'cwnp-wifi',title:'CWNP enterprise Wi-Fi progression',status:'CORE',why:'Enterprise Wi-Fi remains core: CWNA foundation, then CWAP troubleshooting, CWDP design, CWSP security and CWNE experience-gated expert recognition. CWISA is visible but conditional on material IoT/IIoT responsibility.',certs:Object.freeze(['cwna','cwisa','cwap','cwdp','cwsp','cwne']),resources:Object.freeze([{label:'CWNP certifications and study material',url:'https://www.cwnp.com/certifications/cwna'}])}),
     Object.freeze({id:'cellular-wan',title:'Enterprise cellular and Nokia 5G depth',status:'OPTIONAL',why:'The complete Nokia Bell Labs ladder is a credible carrier, RAN and private-5G market signal, but it is not a universal enterprise-cellular requirement. Activate the Associate rung first and add Professional domains only when a target role or private-5G project rewards that telecom depth.',certs:Object.freeze(['nokia-5g-associate','nokia-5g-networking','nokia-5g-slicing','nokia-5g-security','nokia-5g-cloud','nokia-5g-industrial']),topics:Object.freeze(['cellular-wan-operations','cellular-radio-diagnostics','cellular-carrier-core','cellular-security-resilience','cellular-architecture-capstone']),resources:Object.freeze([{label:'Nokia 5G certification portfolio',url:'https://www.nokia.com/networks/training/5g/'},{label:'Nokia Bell Labs 5G programme',url:'https://www.nokia.com/networks/training/bell-labs/'}])}),
     Object.freeze({id:'cloudflare',title:'Cloudflare edge and Zero Trust capability',status:'OPTIONAL',why:'High architecture and operational value for DNS, CDN/WAF/DDoS, tunnels and SASE; no verified public exam ladder, so evidence outranks badge claims.',certs:Object.freeze([]),topics:Object.freeze(['cloudflare-edge-foundations','cloudflare-zero-trust','cloudflare-architecture-capstone']),resources:Object.freeze([{label:'Cloudflare Learning Center',url:'https://www.cloudflare.com/learning/'},{label:'Cloudflare developer learning paths',url:'https://developers.cloudflare.com/learning-paths/'},{label:'Cloudflare Zero Trust documentation',url:'https://developers.cloudflare.com/cloudflare-one/'}])}),
     Object.freeze({id:'ai-security',title:'Vendor-neutral AI security depth',status:'OPTIONAL',why:'Activate after Security+ and AI-901 when AI-system threat modelling, adversarial testing or governance becomes a real project or vacancy requirement; SC-500 remains the Microsoft implementation route.',certs:Object.freeze(['secai-plus']),resources:Object.freeze([{label:'CompTIA certification catalogue',url:'https://www.comptia.org/en-us/certifications/'},{label:'NIST AI Risk Management Framework',url:'https://www.nist.gov/itl/ai-risk-management-framework'},{label:'OWASP Top 10 for LLM Applications',url:'https://genai.owasp.org/llm-top-10/'}])}),
@@ -62,14 +62,51 @@
       trigger:'Demonstrated ownership across multiple infrastructure domains plus evidence of design, resilience, security, integration and lifecycle decisions.'
     })
   });
+  const capabilityModel=Object.freeze({
+    purpose:'Measure career progression by demonstrated capability and ownership, not certification count.',
+    maturity:Object.freeze([
+      Object.freeze({level:1,id:'knowledge',label:'Knowledge',evidence:'Can explain the domain, terminology, architecture and troubleshooting principles; certification or structured study may support this level.'}),
+      Object.freeze({level:2,id:'lab',label:'Lab Evidence',evidence:'Can configure, test, break, troubleshoot and document representative systems in a deliberate lab or project.'}),
+      Object.freeze({level:3,id:'advisory',label:'Advisory Exposure',evidence:'Can diagnose, assess, design around or collaborate on real environments where another team, customer or MSP retains ownership.'}),
+      Object.freeze({level:4,id:'production',label:'Production Ownership',evidence:'Has meaningful hands-on responsibility for live systems, changes, incidents, lifecycle work and operational outcomes.'}),
+      Object.freeze({level:5,id:'design',label:'Design Authority',evidence:'Owns or materially influences requirements, architecture, standards, resilience, security, integration, capacity and lifecycle decisions.'})
+    ]),
+    domains:Object.freeze([
+      Object.freeze({id:'security-systems',label:'Enterprise security systems',priority:'ANCHOR',target:'design'}),
+      Object.freeze({id:'networking',label:'Networking',priority:'CORE',target:'design'}),
+      Object.freeze({id:'wireless',label:'Wireless',priority:'CORE',target:'design'}),
+      Object.freeze({id:'windows-compute',label:'Windows / compute / virtualisation',priority:'CORE',target:'production'}),
+      Object.freeze({id:'linux',label:'Linux',priority:'SUPPORTING',target:'production'}),
+      Object.freeze({id:'cloud',label:'Cloud infrastructure',priority:'CORE',target:'design'}),
+      Object.freeze({id:'identity',label:'Identity and access',priority:'CORE',target:'design'}),
+      Object.freeze({id:'cybersecurity',label:'Cybersecurity',priority:'CORE',target:'design'}),
+      Object.freeze({id:'access-control',label:'Access control',priority:'ROLE_DRIVEN',target:'production'}),
+      Object.freeze({id:'analytics',label:'Video analytics',priority:'ROLE_DRIVEN',target:'production'}),
+      Object.freeze({id:'automation',label:'Automation and APIs',priority:'SUPPORTING',target:'production'}),
+      Object.freeze({id:'ai-systems',label:'Applied AI systems',priority:'LATE_CORE',target:'production'})
+    ]),
+    progressionRule:'For each strategically important domain, advance evidence from Knowledge to Lab Evidence to Advisory Exposure to Production Ownership to Design Authority. Do not infer a higher level merely from certification.',
+    bottleneckRule:'Prioritise the lowest maturity layer that materially blocks the next career transition. More study is not the default answer when the missing layer is production ownership or design authority.',
+    recommendationLogic:Object.freeze([
+      Object.freeze({when:'knowledge_gap',action:'STUDY',rule:'Use focused learning or a justified certification only when missing knowledge is the actual constraint.'}),
+      Object.freeze({when:'lab_gap',action:'BUILD_LAB',rule:'Create practical evidence before adding another overlapping credential.'}),
+      Object.freeze({when:'advisory_gap',action:'SEEK_CROSS_TEAM_EXPOSURE',rule:'Use current work, customer collaboration and technical projects to gain real-environment reasoning exposure.'}),
+      Object.freeze({when:'production_gap',action:'SEEK_OWNERSHIP',rule:'Ask for live responsibility internally; if the ownership ceiling is structural, prioritise Transition 1 over another certificate.'}),
+      Object.freeze({when:'design_gap',action:'SEEK_DESIGN_AUTHORITY',rule:'Pursue senior/lead responsibilities, design participation or Transition 2 rather than substituting architecture exams for design experience.'})
+    ]),
+    antiBadgeRule:'A certification is evidence of structured knowledge, not automatic evidence of production ownership or design authority.',
+    stopStudyingRule:'When knowledge and lab evidence are sufficient but strategically important domains remain blocked at advisory or production maturity, Nexus should explicitly recommend gaining responsibility or changing role instead of continuing certification accumulation.',
+    transitionOneGate:'Trigger active opportunity comparison when Phase 1 is substantially established and multiple CORE domains are knowledge/lab capable but production ownership is structurally unavailable in the current role.',
+    transitionTwoGate:'Trigger senior/lead or architecture opportunity comparison when multiple CORE domains have production ownership but design authority is the dominant remaining constraint.'
+  });
   const executionPolicy=Object.freeze({
     mode:'FOREGROUND_CORE_BACKGROUND_PYTHON',
     foreground:Object.freeze(['mcie','ccna','acp']),
-    complementary:Object.freeze(['pcep','pcap','pcpp1']),
-    nonCompeting:Object.freeze(['pcep','pcap','pcpp1','ai-901','ai-103']),
+    complementary:Object.freeze(['pcep','pcap']),
+    nonCompeting:Object.freeze(['pcep','pcap','ai-901','ai-103']),
     rule:'Python remains a core dependency but cannot displace an active networking, wireless or current-role milestone. AI begins only after the mapped Python rung is complete.'
   });
-  global.CERT_TRACKER_FOCUSED_ROUTE=Object.freeze({id:'network-platform-v6',title:'Security systems convergence engineering',ids,phases,focusTracks,deScopedTracks,auditIds,additions,previousIds,previousPaths,careerPolicy,executionPolicy});
+  global.CERT_TRACKER_FOCUSED_ROUTE=Object.freeze({id:'network-platform-v7',title:'Security systems convergence engineering',ids,phases,focusTracks,deScopedTracks,auditIds,additions,previousIds,previousPaths,careerPolicy,capabilityModel,executionPolicy});
   global.CERT_TRACKER_DEFAULT_PATH=ids;
   global.CERT_TRACKER_DEFAULT_ADDITIONS=Object.freeze([]);
 })(window);
