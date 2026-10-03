@@ -62,6 +62,20 @@
       trigger:'Demonstrated ownership across multiple infrastructure domains plus evidence of design, resilience, security, integration and lifecycle decisions.'
     })
   });
+  const presentationFlow=Object.freeze({
+    promise:'Enterprise security systems → infrastructure ownership → convergence engineering → solution design → security convergence architecture.',
+    narrative:'Take a specialist enterprise physical-security systems foundation, add ownership of the infrastructure around it, integrate those domains in production, then progress into whole-solution design and architecture.',
+    steps:Object.freeze([
+      Object.freeze({order:1,id:'specialise',verb:'SPECIALISE',kind:'STAGE',phase:1,title:'Security Systems & Infrastructure',purpose:'Build the core identity and close the foundation with CCNA.'}),
+      Object.freeze({order:2,id:'strengthen',verb:'STRENGTHEN',kind:'STAGE',phase:2,title:'Infrastructure Ownership Readiness',purpose:'Close only the capability gaps that improve readiness for greater technical ownership.'}),
+      Object.freeze({order:3,id:'own',verb:'OWN',kind:'CAREER_GATE',afterPhase:2,title:'Strategic Transition 1',purpose:'Move when the right opportunity provides materially greater infrastructure ownership, development runway and design exposure.'}),
+      Object.freeze({order:4,id:'integrate',verb:'INTEGRATE',kind:'STAGE',phase:3,title:'Security Convergence Engineering',purpose:'Engineer across security systems, networking, wireless, compute, cloud, identity, cybersecurity and automation.'}),
+      Object.freeze({order:5,id:'design',verb:'DESIGN',kind:'CAREER_GATE',afterPhase:3,title:'Strategic Transition 2',purpose:'Acquire senior/lead responsibility and genuine solution-design authority rather than substituting architecture exams for experience.'}),
+      Object.freeze({order:6,id:'architect',verb:'ARCHITECT',kind:'STAGE',phases:Object.freeze([4,5]),title:'Security Convergence Architecture',purpose:'Own whole-solution technical decisions; use late credentials as evidence of mature capability, not as the definition of success.'})
+    ]),
+    displayRule:'Show career purpose and transition gates before certification detail. Certifications, labs and evidence are subordinate proof beneath the career objective.',
+    tenSecondTest:'A reader should be able to infer within ten seconds that the path takes enterprise physical-security specialism, adds infrastructure ownership, integrates the domains and progresses into architecture.'
+  });
   const capabilityModel=Object.freeze({
     purpose:'Measure career progression by demonstrated capability and ownership, not certification count.',
     maturity:Object.freeze([
@@ -106,7 +120,7 @@
     nonCompeting:Object.freeze(['pcep','pcap','ai-901','ai-103']),
     rule:'Python remains a core dependency but cannot displace an active networking, wireless or current-role milestone. AI begins only after the mapped Python rung is complete.'
   });
-  global.CERT_TRACKER_FOCUSED_ROUTE=Object.freeze({id:'network-platform-v7',title:'Security systems convergence engineering',ids,phases,focusTracks,deScopedTracks,auditIds,additions,previousIds,previousPaths,careerPolicy,capabilityModel,executionPolicy});
+  global.CERT_TRACKER_FOCUSED_ROUTE=Object.freeze({id:'network-platform-v8',title:'Security systems convergence engineering',ids,phases,focusTracks,deScopedTracks,auditIds,additions,previousIds,previousPaths,careerPolicy,presentationFlow,capabilityModel,executionPolicy});
   global.CERT_TRACKER_DEFAULT_PATH=ids;
   global.CERT_TRACKER_DEFAULT_ADDITIONS=Object.freeze([]);
 })(window);
